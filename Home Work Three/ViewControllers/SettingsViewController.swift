@@ -30,9 +30,9 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         mainView.layer.cornerRadius = 15
         mainView.backgroundColor = viewColor
-        sliderAction()
         setValue(for: redSlider, greenSlider, blueSlider)
         sliderAction()
+        
         
     }
     
@@ -76,6 +76,7 @@ class SettingsViewController: UIViewController {
             }
         }
     }
+    
     ///MARK: IBAction func
     @IBAction func doneButton() {
         delegate.setNewColor(mainView.backgroundColor ?? .gray)

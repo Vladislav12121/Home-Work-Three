@@ -63,8 +63,8 @@ class SettingsViewController: UIViewController {
     private func setupLabel() {
         labelToRedSlider.text = string(from: redSlider)
         labelToGreenSlider.text = string(from: greenSlider)
-        labelToBlueSlider.text = string(from: blueSlider)    }
-    
+        labelToBlueSlider.text = string(from: blueSlider)
+    }
     
     private func string(from slider: UISlider) -> String {
         String(format: "%.2f", slider.value)

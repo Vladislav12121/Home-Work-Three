@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ISettingsViewControllerDelegate {
+protocol SettingsViewControllerDelegate {
     func setNewColor(_ color: UIColor)
 }
 
@@ -23,7 +23,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet var labelToGreenSlider: UILabel!
     @IBOutlet var labelToBlueSlider: UILabel!
     
-    var delegate: ISettingsViewControllerDelegate!
+    var delegate: SettingsViewControllerDelegate!
     var viewColor: UIColor!
     
     override func viewDidLoad() {
@@ -31,20 +31,20 @@ class SettingsViewController: UIViewController {
         mainView.layer.cornerRadius = 15
         mainView.backgroundColor = viewColor
         setValue(for: redSlider, greenSlider, blueSlider)
-        sliderAction()
-        
-        
+        setupLabel()
+        setupSliderView()
+      
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        view.endEditing(true)
-    }
-    
-    @IBAction func sliderAction() {
+    @IBAction func sliderAction(_ sender: UISlider) {
         setupSliderView()
         setupLabel()
-        
+    }
+    
+    ///MARK: IBAction func
+    @IBAction func doneButton() {
+        delegate.setNewColor(mainView.backgroundColor ?? .gray)
+        dismiss(animated: true)
     }
     
     /// MARK: Private func setup
@@ -61,9 +61,13 @@ class SettingsViewController: UIViewController {
     }
     
     private func setupLabel() {
-        labelToRedSlider.text = String(format: "%.2f", redSlider.value)
-        labelToGreenSlider.text = String(format: "%.2f", greenSlider.value)
-        labelToBlueSlider.text = String(format: "%.2f", blueSlider.value)
+        labelToRedSlider.text = string(from: redSlider)
+        labelToGreenSlider.text = string(from: greenSlider)
+        labelToBlueSlider.text = string(from: blueSlider)    }
+    
+    
+    private func string(from slider: UISlider) -> String {
+        String(format: "%.2f", slider.value)
     }
     
     private func setValue(for colorSliders: UISlider...) {
@@ -73,13 +77,8 @@ class SettingsViewController: UIViewController {
             case redSlider: redSlider.value = Float(ciColor.red)
             case greenSlider: greenSlider.value = Float(ciColor.green)
             default: blueSlider.value = Float(ciColor.blue)
+                
             }
         }
-    }
-    
-    ///MARK: IBAction func
-    @IBAction func doneButton() {
-        delegate.setNewColor(mainView.backgroundColor ?? .gray)
-        dismiss(animated: true)
     }
 }

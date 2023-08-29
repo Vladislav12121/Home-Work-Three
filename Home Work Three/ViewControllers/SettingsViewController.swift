@@ -36,12 +36,12 @@ class SettingsViewController: UIViewController {
       
     }
     
+    ///MARK: IBAction func
     @IBAction func sliderAction(_ sender: UISlider) {
         setupSliderView()
         setupLabel()
     }
     
-    ///MARK: IBAction func
     @IBAction func doneButton() {
         delegate.setNewColor(mainView.backgroundColor ?? .gray)
         dismiss(animated: true)
@@ -77,7 +77,6 @@ class SettingsViewController: UIViewController {
             case redSlider: redSlider.value = Float(ciColor.red)
             case greenSlider: greenSlider.value = Float(ciColor.green)
             default: blueSlider.value = Float(ciColor.blue)
-                
             }
         }
     }
